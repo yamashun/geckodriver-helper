@@ -18,7 +18,7 @@ module Geckodriver
     end
 
     def download hit_network=false
-      return if File.exists?(binary_path) && !hit_network
+      return if File.exist?(binary_path) && !hit_network
       url = download_url
       filename = File.basename url
       Dir.chdir platform_install_dir do
@@ -28,11 +28,11 @@ module Geckodriver
             saved_file.write(read_file.read)
           end
         end
-        raise "Could not download #{url}" unless File.exists? filename
+        raise "Could not download #{url}" unless File.exist? filename
         unpack_archive(filename)
       end
 
-      raise "Could not unarchive #{filename} to get #{binary_path}" unless File.exists? binary_path
+      raise "Could not unarchive #{filename} to get #{binary_path}" unless File.exist? binary_path
       FileUtils.chmod 'ugo+rx', binary_path
     end
 
